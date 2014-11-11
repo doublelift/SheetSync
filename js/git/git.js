@@ -1,4 +1,4 @@
-var gift = require('nodegit');
+var gift = require('gift');
 var path = require('path');
 var fs = require('fs');
 
@@ -6,9 +6,11 @@ var _init = require('./functions/git.init.js');
 var _status = require('./functions/git.status.js');
 var _add = require('./functions/git.add.js');
 var _commit = require('./functions/git.commit.js');
+var _hist = require('./functions/git.hist.js');
 
 module.exports = {
 	init: _init,
+  getHistory: _hist,
 	status: _status,
 	add: _add,
 	commit: _commit

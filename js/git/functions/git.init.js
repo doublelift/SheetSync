@@ -10,8 +10,10 @@ module.exports = function(rootFilePath, callback) {
     if (!exists) {
     	gift.init(resolvedPath, function(err, repo) {
     		if (err) {console.log(err);}
-    		console.log(repo);
+        console.log('Initialized empty git repository in', resolvedPath);
     	});
+    } else {
+      console.log('Git repository already exists in', resolvedPath);
     }
   });
 

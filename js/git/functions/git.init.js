@@ -6,9 +6,14 @@ var fs = require('fs');
 module.exports = function(rootFilePath, callback) {
 	var resolvedPath = path.resolve(rootFilePath);
 
-	gift.init(resolvedPath, function(err, repo) {
-		if (err) {console.log(err);}
-		console.log(repo);
-	});
+  fs.exists(resolvedPath + '/.git', function(exists) {
+    if (!exists) {
+    	gift.init(resolvedPath, function(err, repo) {
+    		if (err) {console.log(err);}
+    		console.log(repo);
+    	});
+    }
+  });
+
 
 }

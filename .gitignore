@@ -10,7 +10,8 @@ dist
 npm-debug.log
 
 # test spreadsheets
-**/*.csv
+# **/*.csv
+# **/*.shync
 
 # other
 .DS_Store

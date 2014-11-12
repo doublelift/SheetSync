@@ -11,9 +11,12 @@ $(function(){
   // });
 
   var converter = require('./js/arrayToCsv.js');
+  var parsexcel = require('parsexcel.js');
 
   $('.open-project-btn').on('click', function(){
     chooseFile('#fileDialog', function(filePath){
+      // should validate the file extension is .shync unless then throw error
+      // use fileNameValidator?
 
       // change title at top of node webkit window to show file path
       win.title = 'Sheet Sync - ' + filePath;
@@ -30,7 +33,7 @@ $(function(){
   // import .xlsx, .csv etc
   $('.import-file-btn').on('click', function(){
     chooseFile('#fileDialog', function(filePath){
-    
+
       win.title = 'Sheet Sync - ' + filePath;
       metaData.filePath = filePath;
 
@@ -40,6 +43,13 @@ $(function(){
           var workbookname = fileNameValidator(filePath,'csv');
           workbooks[workbookname] = new Workbook(array,{csv:true});
           $('#spreadsheet').handsontable(workbooks[workbookname].sheet1);
+        });
+      } else if (/(.)+\.xlsx$/.test(filePath)){
+        parsexcel(filePath,function(err,array){
+          if (err) console.log(err);
+          var workbookname = fileNameValidator(filePath,'xlsx');
+          workbooks[workbookname] = new Workbook(array,{xlsx:true});
+          $('#spreadsheet').handsontable(workbooks[workbookname][1]);
         });
       } else {
         alert("This file extension is not supported.")
